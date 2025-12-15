@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HelloController {
 
     @GetMapping("/hello") //url 매핑 --> ' hello() <-->  /hello ' , ★ class 매핑이 아닌 메소드() 매핑
-    @ResponseBody
+//    @ResponseBody      // @ResponseBody 주석처리되면 --> return "hello" --> View
     public String hello(){
-        return "Hello World";
+        return "hello";  // 'hello.html'--> 템플릿 이용 --> 화면 + data --> 동적인 화면
 
     }
 }
