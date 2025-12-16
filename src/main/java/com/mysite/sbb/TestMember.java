@@ -7,12 +7,4 @@ import lombok.Setter;
 @Setter
 public class TestMember {
     private String name;
-
-//    public String getName() {
-//        return name;
-//    }
-
-//    public void setName(String name) {
-//        this.name = name;
-//    }
 }
