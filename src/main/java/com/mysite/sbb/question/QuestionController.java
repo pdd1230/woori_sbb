@@ -11,12 +11,14 @@ import java.util.List;
 @Controller
 public class QuestionController {
 
-    private final QuestionRepository questionRepository;
+//    private final QuestionRepository questionRepository;  //주석 처리
+      private final QuestionService questionService;  // questionService 객체로 수정
 
     @GetMapping("/question/list")
-    public String list(Model model) {      // 인터페이스 Modek 사용
-        List<Question> questionList = questionRepository.findAll();   // 메서드 findAll() --> 모든 record read 
-        model.addAttribute("questionList", questionList); // 객체 model에 List<Question>  questionList 전달
+    public String list(Model model) {
+//        List<Question> questionList = QuestionRepository.getList();  // 주석 처리
+        List<Question> questionList = this.questionService.getList();  // this.questionService 가 대신 역할을 하도록 수정
+        model.addAttribute("questionList", questionList);
         return "question_list";
     }
 

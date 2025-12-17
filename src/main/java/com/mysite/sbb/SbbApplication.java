@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @SpringBootApplication
 public class SbbApplication {
-    @GetMapping("/question /list")
     public static void main(String[] args) {
         SpringApplication.run(SbbApplication.class, args);
     }
