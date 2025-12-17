@@ -1,4 +1,4 @@
-package com.mysite.sbb;
+package com.mysite.sbb.user;
 
 public class LombokTest {
     public static void main(String[] args) {
