@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}"> <!-- add -->
-    <title>질문 게시판</title>
-</head>
-<body>
-    <div class="container my-3"> <!-- add -->
+<!--수정 start-->
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<!--수정 end-->
+    <!-- 한줄 수정 : layout:fragment="content" ==> add  -->
+    <!-- div tag 삭제-->
+    <div layout:fragment="content" class="container my-3"> <!-- add -->
         <table class="table">    <!-- add -->
             <thead class="table-dark">  <!-- add -->
             <tr>
@@ -16,12 +16,6 @@
             </tr>
             </thead>
             <tbody>
-<!--            <tr th:each="question : ${questionList}">-->
-<!--                <td>-->
-<!--                    <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>-->
-<!--                </td>-->
-<!--                <td th:text="${question.createDate}"></td>-->
-<!--            </tr>-->
             <tr th:each="question, loop : ${questionList}">
                 <td th:text="${loop.count}"></td>
                 <td>
@@ -32,6 +26,4 @@
             </tbody>
         </table>
     </div>
-
-</body>
 </html>
