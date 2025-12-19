@@ -1,6 +1,5 @@
 package com.mysite.sbb.question;
 
-import com.mysite.sbb.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

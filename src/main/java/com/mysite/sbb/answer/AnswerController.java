@@ -1,6 +1,6 @@
 package com.mysite.sbb.answer;
 
-import com.mysite.sbb.QuestionService;
+import com.mysite.sbb.question.QuestionService;
 import com.mysite.sbb.question.Question;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ public class AnswerController {
                                @RequestParam(value="content") String content) {  // textarea --> name ="content"
         Question question = this.questionService.getQuestion(id);
         // TODO: 답변을 저장한다 --> 로직 처리 순서상 해야 할일
-        answerService.create(question, content); // 답볍을 저장 --> service 호출
+        answerService.createAnswer(question, content); // 답볍을 저장 --> service 호출
 
         return String.format("redirect:/question/detail/%s", id);
     }
