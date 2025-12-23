@@ -2,6 +2,7 @@ package com.mysite.sbb;
 
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionRepository;
+import com.mysite.sbb.question.QuestionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,8 +16,10 @@ class SbbApplicationTests {
     @Autowired
     private QuestionRepository questionRepository;
 
+    @Autowired
+    private QuestionService questionService;
 
-    @Test
+//    @Test  //중복 생성 막기 위해 주석 처리
     void testJpa() {
 
         Question q1 = new Question();
@@ -31,6 +34,16 @@ class SbbApplicationTests {
         q2.setCreateDate(LocalDateTime.now()); // static 메서드 호출 --> class명.메서드명
         this.questionRepository.save(q2);
 
+    }
+
+    @Test
+    void makeTestData()  {
+        for (int i = 1; i <= 300; i++) {
+            // %03d --> d 숫자(디지털) --> 빈자리를 0 --> 전체자릿수 3
+            String subject = String.format("테스트 데이터입니다:[%03d]", i);
+            String content = "내용무";
+            this.questionService.create(subject, content);
+        }
     }
 
 }
