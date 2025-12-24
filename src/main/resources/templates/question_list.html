@@ -12,20 +12,23 @@
                 <th>작성일시</th>
             </tr>
             </thead>
-<!--            수정 시작, 게시글 번호 표시 -->
             <tbody>
             <tr th:each="question, loop : ${paging}">
                 <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
-<!--            수정 종료 -->
                 <td>
                     <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
+<!--수정 시작-->
+                    <span class="text-danger small ms-2"
+                          th:if="${#lists.size(question.answerList) > 0}"
+                          th:text="${#lists.size(question.answerList)}">
+                    </span>
+<!--수정 종료-->
                 </td>
                 <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
             </tr>
             </tbody>
         </table>
 
-        <!-- 페이징처리 시작 -->
         <div th:if="${!paging.isEmpty()}">
             <ul class="pagination justify-content-center">
                 <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
@@ -47,7 +50,6 @@
                 </li>
             </ul>
         </div>
-        <!-- 페이징처리 끝 -->
 
         <a th:href="@{/question/create}" class="btn btn-primary">질문 등록하기</a>
     </div>

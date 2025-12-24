@@ -22,7 +22,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     // jpa 추가
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
+    // web
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -44,6 +44,9 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     //validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    //시큐리티
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 }
 
 tasks.named('test') {
