@@ -17,13 +17,6 @@ public class QuestionController {
 
       private final QuestionService questionService;
 
-//    @GetMapping("/list")
-//    public String list(Model model) {
-//        List<Question> questionList = this.questionService.getList();
-//        model.addAttribute("questionList", questionList);
-//        return "question_list";
-//    }
-
     @GetMapping("/list")
     public String list(Model model, @RequestParam(value="page", defaultValue="0") int page) {
         Page<Question> paging = this.questionService.getList(page);
@@ -42,8 +35,7 @@ public class QuestionController {
     }
 
     @GetMapping("/create")
-//    public String questionCreate() {
-    public String questionCreate(QuestionForm questionForm) { //questionForm --> 양방향(화면-컨트롤) 바인딩
+    public String questionCreate(QuestionForm questionForm) {
         return "question_form";
     }
 
@@ -55,6 +47,6 @@ public class QuestionController {
         }
         this.questionService.create(questionForm.getSubject(), questionForm.getContent());
 
-        return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
+        return "redirect:/question/list";
     }
 }
