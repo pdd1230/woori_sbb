@@ -8,7 +8,7 @@
     <!--    수정 Start-->
     <form th:action="@{/question/create}" th:object="${questionForm}" method="post">
              <!-- 수정 1줄 -->
-            <div th:replace="~{form_errors :: formErrorsFlagment}"></div>
+            <div th:replace="~{form_errors :: formErrorsFragment}"></div>
 
         <div class="mb-3">
             <label for="subject" class="form-label">제목</label>
