@@ -1,6 +1,7 @@
 package com.mysite.sbb.question;
 
 import com.mysite.sbb.answer.Answer;
+import com.mysite.sbb.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,4 +28,8 @@ public class Question {
     // 질문 / 답변 --> 부모 / 자식 , 질문 삭제되면 답변들도 삭제 되어야 한다.
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;  // 복수개의 답변을 저장하려면 --> List 구조 --> 제너릭 --> Answer 타입 지정
+
+    @ManyToOne
+    private SiteUser author;   // 사용자 1명이 잘문을 여러개 작성 가능함
+
 }

@@ -42,7 +42,7 @@ class SbbApplicationTests {
             // %03d --> d 숫자(디지털) --> 빈자리를 0 --> 전체자릿수 3
             String subject = String.format("테스트 데이터입니다:[%03d]", i);
             String content = "내용무";
-            this.questionService.create(subject, content);
+            this.questionService.create(subject, content, null);
         }
     }
 

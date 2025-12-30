@@ -1,6 +1,7 @@
 package com.mysite.sbb.answer;
 
 import com.mysite.sbb.question.Question;
+import com.mysite.sbb.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,5 +24,8 @@ public class Answer {
     // 질문 답변 --> 부모 자식 --> 하나의 질문에 답변이 복수개 -> 답변은 Many --> 질문은 One
     @ManyToOne
     private Question question;
+
+    @ManyToOne
+    private SiteUser author;   // 사용자 1명이 여러개의 답변을 작성 가능함
 
 }
