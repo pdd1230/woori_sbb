@@ -28,4 +28,6 @@ public class Answer {
     @ManyToOne
     private SiteUser author;   // 사용자 1명이 여러개의 답변을 작성 가능함
 
+    private LocalDateTime modifyDate;
+
 }

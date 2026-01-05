@@ -30,6 +30,8 @@ public class Question {
     private List<Answer> answerList;  // 복수개의 답변을 저장하려면 --> List 구조 --> 제너릭 --> Answer 타입 지정
 
     @ManyToOne
-    private SiteUser author;   // 사용자 1명이 잘문을 여러개 작성 가능함
+    private SiteUser author;   // 사용자 1명이 질문을 여러개 작성 가능함
+
+    private LocalDateTime modifyDate ;
 
 }
