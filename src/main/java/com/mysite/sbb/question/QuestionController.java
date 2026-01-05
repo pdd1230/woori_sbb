@@ -107,4 +107,14 @@ public class QuestionController {
         return "redirect:/";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/vote/{id}")
+    public String questionVote(Principal principal ,
+                               @PathVariable Integer id) {
+
+        Question question = this.questionService.getQuestion(id);  // 추천 대상 '질문'을 db에서 가져온다
+        SiteUser siteUser = this.userService.getUser(principal.getName()); // 추천을 누른 '로그인' --> 사용자를 db에서 가져온다
+        questionService.vote(question, siteUser); //
+        return String.format("redirect:/question/detail/%d", id);
+    }
 }

@@ -44,7 +44,6 @@ public class QuestionService {
         q.setAuthor(siteUser);
         this.questionRepository.save(q);
     }
-    //질문제목 + 질문내용 수정하는 메서드입니다
     public void modify(Question question , String subject, String content) {
         question.setSubject(subject);
         question.setContent(content);
@@ -54,6 +53,11 @@ public class QuestionService {
 
     public void delete(Question question) {
         this.questionRepository.delete(question);
+    }
+
+    public void vote(Question question, SiteUser siteUser) {
+        question.getVoter().add(siteUser);
+        this.questionRepository.save(question);
     }
 
 }

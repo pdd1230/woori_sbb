@@ -25,6 +25,13 @@
             </div>
 <!--수정 시작-->
             <div class="my-3">
+<!--추천 버튼 추가 시작-->
+                <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
+                   th:data-uri="@{|/question/vote/${question.id}|}">
+                    추천
+                    <span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}"></span>
+                </a>
+<!--추천 버튼 추가 종료-->
                 <a th:href="@{|/question/modify/${question.id}|}" class="btn btn-sm btn-outline-secondary"
                    sec:authorize="isAuthenticated()"
                    th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
@@ -49,25 +56,25 @@
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;" th:text="${answer.content}"></div>
             <div class="d-flex justify-content-end">
-<!--답변 내용 출력 위치 -> 수정일시 시작-->
                 <div th:if="${answer.modifyDate != null}" class="badge bg-light text-dark p-2 text-start mx-3">
                     <div class="mb-2">modified at</div>
                     <div th:text="${#temporals.format(answer.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
                 </div>
-<!--수정일시 종료-->
                 <div class="badge bg-light text-dark p-2 text-start">
                     <div class="mb-2">
                         <span th:if="${answer.author != null}" th:text="${answer.author.username}"></span>
                     </div>
                     <div th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></div>
                 </div>
-
-
-
             </div>
-
-            <!--수정 시작-->
             <div class="my-3">
+<!--추천 버튼 추가 시작-->
+                <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
+                   th:data-uri="@{|/answer/vote/${answer.id}|}">
+                    추천
+                    <span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.voter)}"></span>
+                </a>
+<!--추천 버튼 추가 종료-->
                 <a th:href="@{|/answer/modify/${answer.id}|}" class="btn btn-sm btn-outline-secondary"
                    sec:authorize="isAuthenticated()"
                    th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}"
@@ -79,21 +86,14 @@
                    th:text="삭제"></a>
 
             </div>
-
-            <!--수정 종료-->
-
         </div>
     </div>
 
     <form th:action="@{|/answer/create/${question.id}|}" th:object="${answerForm}" method="post" class="my-3">
-        <!-- 수정 1줄 -->
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
         <!--        <textarea th:field="*{content}" rows="10" class="form-control"></textarea>-->
-<!--수정 시작-->
         <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" class="form-control" rows="10"></textarea>
         <textarea sec:authorize="isAuthenticated()" th:field="*{content}" class="form-control" rows="10"></textarea>
-<!--수정 종료-->
-
         <input type="submit" value="답변등록" class="btn btn-primary my-2">
     </form>
 </div>
@@ -108,6 +108,15 @@
                 };
             });
         });
+
+    const recommend_elements = document.getElementsByClassName("recommend");
+    Array.from(recommend_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            if(confirm("정말로 추천하시겠습니까?"))   {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
 </script>
 <!--js 수정 종료-->
 

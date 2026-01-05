@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -30,4 +31,6 @@ public class Answer {
 
     private LocalDateTime modifyDate;
 
+    @ManyToMany
+    Set<SiteUser> voter;      //중복 허용 하지 않음 --> 추천은 1개의 질문에 1명, 1번만 등록 가능
 }
