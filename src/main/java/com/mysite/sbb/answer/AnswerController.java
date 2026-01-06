@@ -98,7 +98,7 @@ public class AnswerController {
                              @PathVariable Integer id) {
 
         Answer answer = this.answerService.getAnswer(id);
-        SiteUser siteUser = this.userService.getUser(principal.getName()); 
+        SiteUser siteUser = this.userService.getUser(principal.getName());
         this.answerService.vote(answer, siteUser); //
         // 리다이렉트 위치에 앵커링 'answer_id' 에  --> answer id를 전달
         return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
