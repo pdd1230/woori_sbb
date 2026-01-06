@@ -42,9 +42,10 @@ public class AnswerController {
             model.addAttribute("question", question);
             return "question_detail";
         }
-        this.answerService.createAnswer(question, answerForm.getContent(), siteUser); // content --> answerForm.getContent()로 가져옴
-
-        return String.format("redirect:/question/detail/%s", id);
+        // Answer 객체 사용 --> 앵커링 대상이 되는 답변 id 필요
+        Answer answer = this.answerService.create(question , answerForm.getContent(), siteUser);
+        // 리다이렉트 위치에 앵커링 'answer_id' 에  --> answer id를 전달
+        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -74,7 +75,8 @@ public class AnswerController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다."); // HTTP 응답 처리
         }
         this.answerService.modify(answer, answerForm.getContent());
-        return String.format("redirect:/question/detail/%d", answer.getQuestion().getId());
+        // 리다이렉트 위치에 앵커링 'answer_id' 에  --> answer id를 전달
+        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -95,10 +97,11 @@ public class AnswerController {
     public String answerVote(Principal principal,
                              @PathVariable Integer id) {
 
-        Answer answer = this.answerService.getAnswer(id);  // 추천 대상 '답변'을 db에서 가져온다
-        SiteUser siteUser = this.userService.getUser(principal.getName()); // 추천을 누른 '로그인' --> 사용자를 db에서 가져온다
+        Answer answer = this.answerService.getAnswer(id);
+        SiteUser siteUser = this.userService.getUser(principal.getName()); 
         this.answerService.vote(answer, siteUser); //
-        return String.format("redirect:/question/detail/%d", answer.getQuestion().getId());
+        // 리다이렉트 위치에 앵커링 'answer_id' 에  --> answer id를 전달
+        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
     }
 }
 

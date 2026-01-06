@@ -10,12 +10,10 @@
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;" th:text="${question.content}"></div>
             <div class="d-flex justify-content-end">
-<!--질문 내용 출력 위치 -> 수정일시 시작-->
                 <div th:if="${question.modifyDate != null}" class="badge bg-light text-dark p-2 text-start mx-3">
                     <div class="mb-2">modified at</div>
                     <div th:text="${#temporals.format(question.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
                 </div>
-<!--수정일시 종료                -->
                 <div class="badge bg-light text-dark p-2 text-start">
                     <div class="mb-2">
                         <span th:if="${question.author != null}" th:text="${question.author.username}"></span>
@@ -23,15 +21,12 @@
                     <div th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></div>
                 </div>
             </div>
-<!--수정 시작-->
             <div class="my-3">
-<!--추천 버튼 추가 시작-->
                 <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
                    th:data-uri="@{|/question/vote/${question.id}|}">
                     추천
                     <span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}"></span>
                 </a>
-<!--추천 버튼 추가 종료-->
                 <a th:href="@{|/question/modify/${question.id}|}" class="btn btn-sm btn-outline-secondary"
                    sec:authorize="isAuthenticated()"
                    th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
@@ -41,11 +36,7 @@
                    class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
                    th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
                    th:text="삭제"></a>
-
             </div>
-
-<!--수정 종료-->
-
         </div>
     </div>
 
@@ -53,6 +44,9 @@
         th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다.|"></h5>
 
     <div class="card my-3" th:each="answer : ${question.answerList}">
+<!--앵커 추가-->
+        <a th:id="|answer_${answer.id}|"></a>
+
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;" th:text="${answer.content}"></div>
             <div class="d-flex justify-content-end">
@@ -68,13 +62,11 @@
                 </div>
             </div>
             <div class="my-3">
-<!--추천 버튼 추가 시작-->
                 <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
                    th:data-uri="@{|/answer/vote/${answer.id}|}">
                     추천
                     <span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.voter)}"></span>
                 </a>
-<!--추천 버튼 추가 종료-->
                 <a th:href="@{|/answer/modify/${answer.id}|}" class="btn btn-sm btn-outline-secondary"
                    sec:authorize="isAuthenticated()"
                    th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}"
@@ -84,7 +76,6 @@
                    class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
                    th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}"
                    th:text="삭제"></a>
-
             </div>
         </div>
     </div>
@@ -97,7 +88,6 @@
         <input type="submit" value="답변등록" class="btn btn-primary my-2">
     </form>
 </div>
-<!--js 수정 시작-->
 <script layout:fragment="script" type='text/javascript'>
     const delete_elements = document.getElementsByClassName("delete");
     Array.from(delete_elements)
@@ -118,6 +108,5 @@
         });
     });
 </script>
-<!--js 수정 종료-->
 
 </html>
